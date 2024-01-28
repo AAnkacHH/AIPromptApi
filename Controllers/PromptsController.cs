@@ -31,9 +31,9 @@ public class PromptsController(PromptService promptService) : ControllerBase
     
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status201Created)]
-    public async Task<IActionResult> GetPrompts(int id)
+    public async Task<IActionResult> GetPrompt(int id)
     {
-        var prompt = await promptService.FindPromptByIdAsync(id);
+        var prompt = await promptService.GetPromptResponseById(id);
         return Ok(prompt);
     }
     
@@ -41,7 +41,7 @@ public class PromptsController(PromptService promptService) : ControllerBase
     public async Task<IActionResult> DeletePrompt(int id)
     {
         try {
-            promptService.DeletePrompt(id);
+            await promptService.DeletePrompt(id);
         } catch (Exception e) {
             return NotFound(e.Message);
         }

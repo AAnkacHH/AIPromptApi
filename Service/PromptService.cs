@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PromptAPI.Model.Entity;
 using PromptAPI.Model.Request;
+using PromptAPI.Model.Response;
 using PromptAPI.Service.Database;
 
 namespace PromptAPI.Service;
@@ -20,7 +21,13 @@ public class PromptService(PromptDbContext context, IMapper mapper)
     {
         return await context.Prompts
             .Include(p => p.Author)
+            .Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id);
+    }
+    
+    public async Task<PromptResponseDetail?> GetPromptResponseById(int id)
+    {
+        return mapper.Map<PromptResponseDetail>(await FindPromptByIdAsync(id));
     }
 
     public async Task<IEnumerable<Prompt>> FindPromptsByAuthorIdAsync(int authorId)
