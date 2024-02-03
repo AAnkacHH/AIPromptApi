@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(RequestMappingProfile));
 
 builder.Services.AddTransient<PromptService>();
 builder.Services.AddTransient<CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

@@ -15,5 +15,8 @@ public class RequestMappingProfile : Profile
             .ForMember(dest => dest.AccessCount, opt => opt.MapFrom(src => 0)); // Встановити за замовчуванням 0
         CreateMap<CreateCategoryRequest, Category>()
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow));
+        CreateMap<CreateUserRequest, User>();
+        CreateMap<UpdateUserRequest, User>()
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore());
     }
 }
