@@ -1,5 +1,4 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PromptAPI.Model.Entity;
 using PromptAPI.Model.Request;
@@ -10,22 +9,18 @@ namespace PromptAPI.Service;
 
 public class UserService(
     PromptDbContext context, 
-    IMapper mapper
+    IMapper mapper,
+    IPasswordHasher hasher
     ) : IUserService
 {
     // Create
     public async Task<UserResponse> CreateUserAsync(CreateUserRequest request)
     {
         var user = mapper.Map<User>(request);
-        user.PasswordHash = HashPassword(user, request.Password);
+        user.PasswordHash = hasher.HashPassword(request.Password);
         context.Users.Add(user);
         await context.SaveChangesAsync();
         return mapper.Map<UserResponse>(user);
-    }
-
-    private string HashPassword(User user, string requestPassword)
-    {
-        return "test";
     }
 
     // Read
@@ -38,6 +33,11 @@ public class UserService(
     public async Task<User?> FindUserByIdAsync(int id)
     {
         return await context.Users.FindAsync(id);
+    }
+    
+    public async Task<User?> FindUserByUsername(string username)
+    {
+        return context.Users.FirstOrDefault(user => user.Username == username);
     }
 
     public async Task<IEnumerable<UserResponse>> GetAllUsersAsync()

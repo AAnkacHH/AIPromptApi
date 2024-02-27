@@ -12,5 +12,6 @@ public class CreateUserRequest
     [Required]
     [MaxLength(255)]
     public string Email { get; set; }
+    
     public bool IsAdmin { get; set; }
 }
