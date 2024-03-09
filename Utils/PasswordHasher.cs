@@ -1,9 +1,11 @@
-namespace PromptAPI.Service;
+using PromptAPI.Service;
+
+namespace PromptAPI.Utils;
 
 using System;
 using System.Security.Cryptography;
 
-public class PasswordHasher
+public class PasswordHasher : IPasswordHasher
 {
     // The following constants may be adjusted depending on the security requirements.
     private const int SaltSize = 16; // 128 bit 

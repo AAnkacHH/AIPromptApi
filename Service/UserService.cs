@@ -4,6 +4,7 @@ using PromptAPI.Model.Entity;
 using PromptAPI.Model.Request;
 using PromptAPI.Model.Response;
 using PromptAPI.Service.Database;
+using PromptAPI.Utils;
 
 namespace PromptAPI.Service;
 

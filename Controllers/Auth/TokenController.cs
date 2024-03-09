@@ -8,9 +8,9 @@ using PromptAPI.Service;
 
 namespace PromptAPI.Controllers.Auth;
 
-[Route("api/[controller]")]
+[Route("/[controller]")]
 [ApiController]
-public class TokenController(IConfiguration config, UserService userService) : ControllerBase
+public class TokenController(IConfiguration config, IUserService userService) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] LoginRequest loginRequest)
@@ -30,7 +30,7 @@ public class TokenController(IConfiguration config, UserService userService) : C
 
         var sectoken = new JwtSecurityToken(config["Jwt:Issuer"],
             config["Jwt:Issuer"],
-            null,
+            claims,
             expires: DateTime.Now.AddMinutes(120),
             signingCredentials: credentials);
 

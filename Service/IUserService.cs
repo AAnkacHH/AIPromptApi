@@ -13,4 +13,6 @@ public interface IUserService
     Task DeleteUserAsync(User user);
 
     Task<User?> FindUserByIdAsync(int id);
+
+    public Task<User?> FindUserByUsername(string username);
 }

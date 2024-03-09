@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using PromptAPI.Model.Mapping;
 using PromptAPI.Service;
 using PromptAPI.Service.Database;
+using PromptAPI.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,7 @@ builder.Services.AddAutoMapper(typeof(RequestMappingProfile));
 builder.Services.AddTransient<PromptService>();
 builder.Services.AddTransient<CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 var app = builder.Build();
 
